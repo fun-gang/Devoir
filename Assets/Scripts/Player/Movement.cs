@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
     [Header ("Movement")]
+    private Gameplay controls = null;
+    [HideInInspector] public Vector2 movement = Vector2.zero;
+    [HideInInspector] public float jumpPressTime = float.NegativeInfinity;
+    [HideInInspector] public float jumpStartTime = float.NegativeInfinity;
     private float movementSpeed = 5;
     public float acceleration = 10;
     public float deceleration = 10;
@@ -29,6 +34,7 @@ public class Movement : MonoBehaviour
     [Header ("Collision")]
     public LayerMask groundLayer;
     public BoxRay groundRay;
+    public BoxRay climbRay;
     public SegmentRay stepRay;
 
     [Header ("Effects")]
@@ -40,7 +46,6 @@ public class Movement : MonoBehaviour
     // Components
     private Animator anim;
     private Rigidbody2D rb = null;
-    private PlayerInit plInput = null;
 
     public static bool control; // Variable for cutscenes => Turn off/on movement ability
 
@@ -51,9 +56,9 @@ public class Movement : MonoBehaviour
 
 
     void Awake() {
+        controls = new Gameplay();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        plInput = GetComponent<PlayerInit>();
         control = true;
         movementSpeed = PlayerStats.PlayerSpeed;
     }
@@ -71,22 +76,21 @@ public class Movement : MonoBehaviour
             anim.SetBool ("IsMoving", false);
             rb.velocity = Vector2.zero;
         }
-
+        Climb ();
         anim.SetFloat ("VerticalSpeed", rb.velocity.y);
         anim.SetBool ("IsGrounded", isGrounded);
-
     }    
 
     private void TryJump () {
-        if (isGrounded && (Time.time - plInput.jumpPressTime) < bufferingTime && !sword.isBlock) {
+        if (isGrounded && (Time.time - jumpPressTime) < bufferingTime && !sword.isBlock) {
             rb.velocity = Vector2.up * jumpInitialVelocity;
-            plInput.jumpStartTime = Time.time;
+            jumpStartTime = Time.time;
             lastGroundedTime = float.NegativeInfinity;
         }
     }
 
     private void ApplyJumpSpeed () {
-        float progress = 1 - (Time.time - plInput.jumpStartTime) / jumpHoldDuration;
+        float progress = 1 - (Time.time - jumpStartTime) / jumpHoldDuration;
         if (progress < 0) return;
 
         progress = Mathf.Pow (progress, jumpHoldEasing);
@@ -96,8 +100,8 @@ public class Movement : MonoBehaviour
     private void MovePlayer () {
         float velocity = rb.velocity.x;
 
-        if (plInput.movement.x != 0 && !sword.isBlock) {
-            direction = Mathf.Sign (plInput.movement.x);
+        if (movement.x != 0 && !sword.isBlock) {
+            direction = Mathf.Sign (movement.x);
             Vector3 scale = transform.localScale;
             scale.x = Mathf.Abs(scale.x) * direction;
             transform.localScale = scale;
@@ -109,7 +113,7 @@ public class Movement : MonoBehaviour
         } else {
             velocity = Mathf.MoveTowards (velocity, 0, deceleration * Time.fixedDeltaTime);
         }
-        anim.SetBool ("IsMoving", plInput.movement.x != 0);
+        anim.SetBool ("IsMoving", movement.x != 0);
         rb.velocity = new Vector2(velocity, rb.velocity.y);
     }
 
@@ -119,6 +123,9 @@ public class Movement : MonoBehaviour
     }
 
     void OnDrawGizmos () {
+        Gizmos.color = new Color (0.5f, 0.2f, 1f);
+        climbRay.Draw ();
+
         Gizmos.color = new Color (0.2f, 0.5f, 1f);
         groundRay.Draw ();
 
@@ -126,9 +133,19 @@ public class Movement : MonoBehaviour
         stepRay.Draw ();
     }
 
+    private void Climb() {
+        bool isJumpPressed = (controls.Player.Jump.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint);
+        bool isAwaliable = !climbRay.Raycast(groundLayer) && isJumpPressed && stepRay.Raycast(groundLayer);
+        
+        anim.SetBool("IsClimb", isAwaliable);
+        control = !isAwaliable;
+        if (isAwaliable) {
+            rb.velocity = new Vector2(direction,1) * jumpInitialVelocity;
+        }
+    }
 
     public void ApplyStep () {
-        if (rb.velocity.y > 0 || plInput.movement.x == 0) return;
+        if (rb.velocity.y > 0 || movement.x == 0) return;
 
         float step = CalulateStep ();
         if (step > stepHeight || step == 0) return;
@@ -149,5 +166,27 @@ public class Movement : MonoBehaviour
         if (((groundLayer >> collision.gameObject.layer) & 1) == 1) {
             Instantiate(groundParticle, particleOrigin.transform.position, Quaternion.identity);
         }
+    }
+
+    void OnMovePerformed(InputAction.CallbackContext value) => movement = value.ReadValue<Vector2>();
+    void OnMoveCanceled(InputAction.CallbackContext value) => movement = Vector2.zero;
+
+    void PressJump (InputAction.CallbackContext value) => jumpPressTime = Time.time;
+    void ReleaseJump (InputAction.CallbackContext value) => jumpPressTime = jumpStartTime = float.NegativeInfinity;
+
+    void OnEnable() {
+        controls.Enable();
+        controls.Player.Move.performed += OnMovePerformed;
+        controls.Player.Move.canceled += OnMoveCanceled;
+        controls.Player.Jump.performed += PressJump;
+        controls.Player.Jump.canceled += ReleaseJump;
+    }
+
+    private void OnDisable() {
+        controls.Disable();
+        controls.Player.Move.performed -= OnMovePerformed;
+        controls.Player.Move.canceled -= OnMoveCanceled;
+        controls.Player.Jump.performed -= PressJump;
+        controls.Player.Jump.canceled -= ReleaseJump;
     }
 }

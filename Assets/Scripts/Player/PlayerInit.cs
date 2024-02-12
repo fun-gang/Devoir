@@ -6,12 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInit : MonoBehaviour
 {
-    // Movement
     private Gameplay controls = null;
-    [HideInInspector] public Vector2 movement = Vector2.zero;
-    [HideInInspector] public float jumpPressTime = float.NegativeInfinity;
-    [HideInInspector] public float jumpStartTime = float.NegativeInfinity;
-
 
     // UI and Camera Controll
     private MenuDrop menuDrop;
@@ -41,24 +36,12 @@ public class PlayerInit : MonoBehaviour
     void Update() {
         currentDevice = plInpt.currentControlScheme;
         
-        if (controls.Player.Block.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint && sword.isReady) {
-            if (sword.isReady) sword.isBlock = true;
-        }
-        else sword.isBlock = false;
+        sword.isBlock = (controls.Player.Block.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint && sword.isReady && Movement.control);
     }
-
-    void OnMovePerformed(InputAction.CallbackContext value) => movement = value.ReadValue<Vector2>();
-    void OnMoveCanceled(InputAction.CallbackContext value) => movement = Vector2.zero;
-
-    void PressJump (InputAction.CallbackContext value) => jumpPressTime = Time.time;
-    void ReleaseJump (InputAction.CallbackContext value) => jumpPressTime = jumpStartTime = float.NegativeInfinity;
 
     private void OnEnable() {
         controls.Enable();
-        controls.Player.Move.performed += OnMovePerformed;
-        controls.Player.Move.canceled += OnMoveCanceled;
-        controls.Player.Jump.performed += PressJump;
-        controls.Player.Jump.canceled += ReleaseJump;
+
         controls.Player.Exit.performed += menuDrop.OpenPanel;
         controls.Player.Fire.performed += gun.Fire;
         controls.Player.Sword.performed += sword.Attack;
@@ -68,10 +51,7 @@ public class PlayerInit : MonoBehaviour
 
     private void OnDisable() {
         controls.Disable();
-        controls.Player.Move.performed -= OnMovePerformed;
-        controls.Player.Move.canceled -= OnMoveCanceled;
-        controls.Player.Jump.performed -= PressJump;
-        controls.Player.Jump.canceled -= ReleaseJump;
+
         controls.Player.Exit.performed -= menuDrop.OpenPanel;
         controls.Player.Fire.performed -= gun.Fire;
         controls.Player.Sword.performed -= sword.Attack;
