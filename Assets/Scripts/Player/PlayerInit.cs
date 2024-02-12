@@ -25,7 +25,6 @@ public class PlayerInit : MonoBehaviour
     [Header ("Weapons")]
     public Gun gun;
     public Sword sword;
-    public Interactive inter;
     private Health health;
 
     void Awake() {
@@ -42,7 +41,7 @@ public class PlayerInit : MonoBehaviour
     void Update() {
         currentDevice = plInpt.currentControlScheme;
         
-        if (controls.Player.Block.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint) {
+        if (controls.Player.Block.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint && sword.isReady) {
             if (sword.isReady) sword.isBlock = true;
         }
         else sword.isBlock = false;
@@ -64,8 +63,6 @@ public class PlayerInit : MonoBehaviour
         controls.Player.Fire.performed += gun.Fire;
         controls.Player.Sword.performed += sword.Attack;
         
-        controls.Player.Act.performed += inter.Act;
-        controls.Player.Put.performed += inter.Put;
         controls.Player.Heal.performed += health.RecoverHP;
     }
 
@@ -78,8 +75,5 @@ public class PlayerInit : MonoBehaviour
         controls.Player.Exit.performed -= menuDrop.OpenPanel;
         controls.Player.Fire.performed -= gun.Fire;
         controls.Player.Sword.performed -= sword.Attack;
-        
-        controls.Player.Act.performed -= inter.Act;
-        controls.Player.Put.performed -= inter.Put;
     }
 }

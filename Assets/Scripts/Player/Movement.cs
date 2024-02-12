@@ -76,7 +76,7 @@ public class Movement : MonoBehaviour
         anim.SetBool ("IsGrounded", isGrounded);
 
     }    
-    
+
     private void TryJump () {
         if (isGrounded && (Time.time - plInput.jumpPressTime) < bufferingTime && !sword.isBlock) {
             rb.velocity = Vector2.up * jumpInitialVelocity;

@@ -55,15 +55,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Put"",
-                    ""type"": ""Button"",
-                    ""id"": ""064e36b4-98a2-43a5-99af-d4143717badc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Act"",
                     ""type"": ""Button"",
                     ""id"": ""b72279cf-5781-4fb2-9824-4d16b725e1ec"",
@@ -333,7 +324,7 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""46615a75-0b02-4c87-b4bc-4f673b6b61d2"",
-                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -464,28 +455,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d85bf053-4c52-4271-a211-3b374301faf1"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Put"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fbb134bc-27ed-42a7-9441-11758d03bec5"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Put"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""02ba42a0-47e4-4904-9ff0-8ed7088f3000"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -520,7 +489,7 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b0d63153-b12c-40f5-a710-acaf0c754820"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1104,7 +1073,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Put = m_Player.FindAction("Put", throwIfNotFound: true);
         m_Player_Act = m_Player.FindAction("Act", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Sword = m_Player.FindAction("Sword", throwIfNotFound: true);
@@ -1186,7 +1154,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Exit;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Put;
     private readonly InputAction m_Player_Act;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Sword;
@@ -1199,7 +1166,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         public InputAction @Exit => m_Wrapper.m_Player_Exit;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Put => m_Wrapper.m_Player_Put;
         public InputAction @Act => m_Wrapper.m_Player_Act;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Sword => m_Wrapper.m_Player_Sword;
@@ -1223,9 +1189,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Put.started += instance.OnPut;
-            @Put.performed += instance.OnPut;
-            @Put.canceled += instance.OnPut;
             @Act.started += instance.OnAct;
             @Act.performed += instance.OnAct;
             @Act.canceled += instance.OnAct;
@@ -1254,9 +1217,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Put.started -= instance.OnPut;
-            @Put.performed -= instance.OnPut;
-            @Put.canceled -= instance.OnPut;
             @Act.started -= instance.OnAct;
             @Act.performed -= instance.OnAct;
             @Act.canceled -= instance.OnAct;
@@ -1430,7 +1390,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         void OnExit(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnPut(InputAction.CallbackContext context);
         void OnAct(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnSword(InputAction.CallbackContext context);

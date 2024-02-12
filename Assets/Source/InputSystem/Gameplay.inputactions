@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Put",
-                    "type": "Button",
-                    "id": "064e36b4-98a2-43a5-99af-d4143717badc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Act",
                     "type": "Button",
                     "id": "b72279cf-5781-4fb2-9824-4d16b725e1ec",
@@ -311,7 +302,7 @@
                 {
                     "name": "",
                     "id": "46615a75-0b02-4c87-b4bc-4f673b6b61d2",
-                    "path": "<DualShockGamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -442,28 +433,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d85bf053-4c52-4271-a211-3b374301faf1",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Put",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fbb134bc-27ed-42a7-9441-11758d03bec5",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Put",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "02ba42a0-47e4-4904-9ff0-8ed7088f3000",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -498,7 +467,7 @@
                 {
                     "name": "",
                     "id": "b0d63153-b12c-40f5-a710-acaf0c754820",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
