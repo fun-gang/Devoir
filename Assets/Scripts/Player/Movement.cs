@@ -27,7 +27,9 @@ public class Movement : MonoBehaviour
 
     [Header ("Accessibility")]
     [Tooltip ("Max time beetween input and jump")]
-    public float bufferingTime = 0.1f;
+    public float jumpBufferingTime = 0.1f;
+    [Tooltip ("Max time beetween input and climb")]
+    public float climbBufferingTime = 0.3f;
     public float coyoteTime = 0.05f;
     public float stepHeight = 0.1f;
 
@@ -69,6 +71,7 @@ public class Movement : MonoBehaviour
         {
             ApplyStep ();
             GroundCheck ();
+            TryClimb ();
             TryJump ();
             ApplyJumpSpeed ();
             MovePlayer ();
@@ -76,13 +79,12 @@ public class Movement : MonoBehaviour
             anim.SetBool ("IsMoving", false);
             rb.velocity = Vector2.zero;
         }
-        Climb ();
         anim.SetFloat ("VerticalSpeed", rb.velocity.y);
         anim.SetBool ("IsGrounded", isGrounded);
     }    
 
     private void TryJump () {
-        if (isGrounded && (Time.time - jumpPressTime) < bufferingTime && !sword.isBlock) {
+        if (isGrounded && (Time.time - jumpPressTime) < jumpBufferingTime && !sword.isBlock) {
             rb.velocity = Vector2.up * jumpInitialVelocity;
             jumpStartTime = Time.time;
             lastGroundedTime = float.NegativeInfinity;
@@ -133,14 +135,35 @@ public class Movement : MonoBehaviour
         stepRay.Draw ();
     }
 
-    private void Climb() {
-        bool isJumpPressed = (controls.Player.Jump.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint);
-        bool isAwaliable = !climbRay.Raycast(groundLayer) && isJumpPressed && stepRay.Raycast(groundLayer);
-        
-        anim.SetBool("IsClimb", isAwaliable);
-        control = !isAwaliable;
+    private void TryClimb () {
+        bool isJumpPressed = Time.time - jumpPressTime < climbBufferingTime;
+        bool isAwaliable = climbRay.Raycast(groundLayer) && isJumpPressed; //замени на 2 рейкаста
+
         if (isAwaliable) {
-            rb.velocity = new Vector2(direction,1) * jumpInitialVelocity;
+            control = false;
+            StartCoroutine (Climb ());
+        }
+    }
+
+    private IEnumerator Climb() {
+        control = false;
+        rb.isKinematic = true;
+
+        anim.Play ("PlayerClimb");
+        yield return null;
+        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo (0);
+        while (state.IsName ("PlayerClimb") && state.normalizedTime < 1) {
+            yield return null;
+            state = anim.GetCurrentAnimatorStateInfo (0);
+        }
+
+        rb.isKinematic = false;
+        control = true;
+    }
+
+    void OnAnimatorMove () {
+        if (!control) {
+            anim.ApplyBuiltinRootMotion ();
         }
     }
 
