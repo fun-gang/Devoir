@@ -5,10 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
-    private int countOfBullets;
-    private float timeBtwShots;
-    private float reloadTime;
-    private float damage;
+    [SerializeField] private PlayerData stats;
     
     public GameObject bullet;
     public Transform firePos;
@@ -16,12 +13,7 @@ public class Gun : MonoBehaviour
     private bool isReady = true;
     public Sword sword;
     public Health health;
-    private float gunFireCost;
-
-    void Start() {
-        InitParams();
-    }
-
+    
     public void Fire(InputAction.CallbackContext value) {
         if (isReady && Movement.control && !sword.isBlock && CheckEnergyLimit()) {
             isReady = false;
@@ -30,30 +22,22 @@ public class Gun : MonoBehaviour
     }
 
     private bool CheckEnergyLimit() {
-        if (health.energy >= countOfBullets * gunFireCost) return true;
+        if (health.energy >= stats.CountOfBullets * stats.GunFireCost) return true;
         return false;
     }
 
     IEnumerator FireCor() {
-        health.energy -= countOfBullets * gunFireCost;
+        health.energy -= stats.CountOfBullets * stats.GunFireCost;
         health.SetUIHealthAndEnergy();
-        for (int k = 0; k < countOfBullets; k ++) {
+        for (int k = 0; k < stats.CountOfBullets; k ++) {
             foreach (GameObject i in effects) {
-                yield return new WaitForSeconds(timeBtwShots);
+                yield return new WaitForSeconds(stats.TimeBtwShots);
                 Instantiate(i, firePos.position, transform.rotation);
             }
             GameObject newBullet = Instantiate(bullet, firePos.position, Quaternion.FromToRotation (Vector3.right, transform.lossyScale.x * transform.right));
-            newBullet.GetComponent<PlayerBullet>().damage = damage;
+            newBullet.GetComponent<PlayerBullet>().damage = stats.GunDamage;
         }
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(stats.ReloadTime);
         isReady = true;
-    }
-
-    private void InitParams() {
-        countOfBullets = PlayerStats.CountOfBullets;
-        timeBtwShots = PlayerStats.TimeBTWshots;
-        reloadTime = PlayerStats.GunReloadTime;
-        damage = PlayerStats.GunDamage;
-        gunFireCost = PlayerStats.GunFireCost;
     }
 }

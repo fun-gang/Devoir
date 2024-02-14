@@ -5,18 +5,15 @@ using UnityEngine.InputSystem;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] private PlayerData stats;
     private Rate rt;
     private int health;
-    private int maxHealth;
     private SetHPCells ui;
-    public float energy = 0;
-    private float recoveringSpeed;
+    [HideInInspector] public float energy = 0;
 
     void Start() {
         energy = 0;
-        maxHealth = PlayerStats.MaxHealth;
-        recoveringSpeed = PlayerStats.RecoveringSpeed;
-        health = maxHealth;
+        health = stats.MaxHealth;
         rt = GetComponent<Rate>();
         ui = GameObject.FindGameObjectWithTag("MenuDrop").GetComponent<SetHPCells>();
         SetUIHealthAndEnergy();
@@ -36,7 +33,7 @@ public class Health : MonoBehaviour
     }
 
     public void RecoverHP(InputAction.CallbackContext value) {
-        if (health < maxHealth && energy >= 1) {
+        if (health < stats.MaxHealth && energy >= stats.MaxEnergy) {
             energy = 0;
             health += 1;
         }
@@ -44,8 +41,8 @@ public class Health : MonoBehaviour
     }
 
     public void AddEnergy() {
-        energy += recoveringSpeed;
-        if (energy > 1) energy = 1;
+        energy += stats.EnergyRecoveringSpeed;
+        if (energy > stats.MaxEnergy) energy = 1;
         SetUIHealthAndEnergy();
     }
 

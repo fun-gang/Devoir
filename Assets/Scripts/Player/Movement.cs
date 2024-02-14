@@ -37,6 +37,7 @@ public class Movement : MonoBehaviour
     public LayerMask groundLayer;
     public BoxRay groundRay;
     public BoxRay climbRay;
+    public BoxRay checkTowardRay;
     public SegmentRay stepRay;
 
     [Header ("Effects")]
@@ -62,7 +63,6 @@ public class Movement : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         control = true;
-        movementSpeed = PlayerStats.PlayerSpeed;
     }
 
     private void FixedUpdate()
@@ -128,6 +128,9 @@ public class Movement : MonoBehaviour
         Gizmos.color = new Color (0.5f, 0.2f, 1f);
         climbRay.Draw ();
 
+        Gizmos.color = new Color (0.5f, 1f, 1f);
+        checkTowardRay.Draw ();
+
         Gizmos.color = new Color (0.2f, 0.5f, 1f);
         groundRay.Draw ();
 
@@ -137,7 +140,7 @@ public class Movement : MonoBehaviour
 
     private void TryClimb () {
         bool isJumpPressed = Time.time - jumpPressTime < climbBufferingTime;
-        bool isAwaliable = climbRay.Raycast(groundLayer) && isJumpPressed; //замени на 2 рейкаста
+        bool isAwaliable = !climbRay.Raycast(groundLayer) && isJumpPressed && checkTowardRay.Raycast(groundLayer);
 
         if (isAwaliable) {
             control = false;
