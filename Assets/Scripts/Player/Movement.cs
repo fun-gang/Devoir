@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public Vector2 movement = Vector2.zero;
     [HideInInspector] public float jumpPressTime = float.NegativeInfinity;
     [HideInInspector] public float jumpStartTime = float.NegativeInfinity;
-    private float movementSpeed = 5;
+    public float movementSpeed = 5;
     public float acceleration = 10;
     public float deceleration = 10;
 
@@ -55,7 +55,6 @@ public class Movement : MonoBehaviour
     // Jump
     private bool isGrounded;
     private float lastGroundedTime = float.NegativeInfinity;
-    public Sword sword;
 
 
     void Awake() {
@@ -84,7 +83,7 @@ public class Movement : MonoBehaviour
     }    
 
     private void TryJump () {
-        if (isGrounded && (Time.time - jumpPressTime) < jumpBufferingTime && !sword.isBlock) {
+        if (isGrounded && (Time.time - jumpPressTime) < jumpBufferingTime) {
             rb.velocity = Vector2.up * jumpInitialVelocity;
             jumpStartTime = Time.time;
             lastGroundedTime = float.NegativeInfinity;
@@ -102,7 +101,7 @@ public class Movement : MonoBehaviour
     private void MovePlayer () {
         float velocity = rb.velocity.x;
 
-        if (movement.x != 0 && !sword.isBlock) {
+        if (movement.x != 0) {
             direction = Mathf.Sign (movement.x);
             Vector3 scale = transform.localScale;
             scale.x = Mathf.Abs(scale.x) * direction;

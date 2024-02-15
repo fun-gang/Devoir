@@ -82,15 +82,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Block"",
-                    ""type"": ""Button"",
-                    ""id"": ""e1a3ff97-cafe-4920-a6e9-b5d21c5666f9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Heal"",
                     ""type"": ""Button"",
                     ""id"": ""ee0962bc-cd8c-46fd-9902-53e202ec1262"",
@@ -450,28 +441,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""02ba42a0-47e4-4904-9ff0-8ed7088f3000"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Block"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7d8904d4-ce4a-4bf8-b520-9269ebd00eb7"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Block"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1076,7 +1045,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         m_Player_Act = m_Player.FindAction("Act", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Sword = m_Player.FindAction("Sword", throwIfNotFound: true);
-        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_Heal = m_Player.FindAction("Heal", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1157,7 +1125,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Act;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Sword;
-    private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_Heal;
     public struct PlayerActions
     {
@@ -1169,7 +1136,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         public InputAction @Act => m_Wrapper.m_Player_Act;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Sword => m_Wrapper.m_Player_Sword;
-        public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @Heal => m_Wrapper.m_Player_Heal;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1198,9 +1164,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
             @Sword.started += instance.OnSword;
             @Sword.performed += instance.OnSword;
             @Sword.canceled += instance.OnSword;
-            @Block.started += instance.OnBlock;
-            @Block.performed += instance.OnBlock;
-            @Block.canceled += instance.OnBlock;
             @Heal.started += instance.OnHeal;
             @Heal.performed += instance.OnHeal;
             @Heal.canceled += instance.OnHeal;
@@ -1226,9 +1189,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
             @Sword.started -= instance.OnSword;
             @Sword.performed -= instance.OnSword;
             @Sword.canceled -= instance.OnSword;
-            @Block.started -= instance.OnBlock;
-            @Block.performed -= instance.OnBlock;
-            @Block.canceled -= instance.OnBlock;
             @Heal.started -= instance.OnHeal;
             @Heal.performed -= instance.OnHeal;
             @Heal.canceled -= instance.OnHeal;
@@ -1393,7 +1353,6 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         void OnAct(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnSword(InputAction.CallbackContext context);
-        void OnBlock(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
     }
     public interface IUIActions

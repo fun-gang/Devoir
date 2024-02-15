@@ -8,7 +8,6 @@ public class Sword : MonoBehaviour
     public Animator playerAnim;
     public GameObject[] swordSounds;
     public bool isReady;
-    public bool isBlock;
     private int attackState;
     public List<SwordsAnimations> swordAnims = new List<SwordsAnimations>();
 
@@ -18,8 +17,6 @@ public class Sword : MonoBehaviour
         InitializeAnimDuration();
         isReady = true;
     }
-
-    void FixedUpdate() => playerAnim.SetBool("isBlock", isBlock);
 
     public void Attack(InputAction.CallbackContext value) {
         if (isReady && Movement.control) {

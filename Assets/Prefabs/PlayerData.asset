@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1c70188e3097b40965ba0d4be3506d, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  swordDamage: 0.2
-  gunDamage: 0.1
-  timeBtwShots: 0.1
-  reloadTime: 0.5
-  countOfBullets: 2
-  maxHealth: 5
-  maxEnergy: 1
-  energyRecoveringSpeed: 0.25
-  gunFireCost: 0.01
+  swordDamageMod: 0
+  gunDamageMod: 500
+  timeBtwShotsMod: 0
+  reloadTimeMod: 0
+  countOfBulletsMod: 0
+  maxHealthMod: 0
+  maxEnergyMod: 0
+  energyRecoveringSpeedMod: 70
+  gunFireCostMod: 0

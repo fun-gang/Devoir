@@ -35,8 +35,6 @@ public class PlayerInit : MonoBehaviour
 
     void Update() {
         currentDevice = plInpt.currentControlScheme;
-        
-        sword.isBlock = (controls.Player.Block.ReadValue<float>() >= InputSystem.settings.defaultButtonPressPoint && sword.isReady && Movement.control);
     }
 
     private void OnEnable() {

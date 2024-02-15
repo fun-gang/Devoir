@@ -1458,10 +1458,11 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   jumpPressTime: -Infinity
   jumpStartTime: -Infinity
+  movementSpeed: 9
   acceleration: 40
   deceleration: 80
-  airSpeedMod: 1
-  airAccelerationMod: 1
+  airSpeedMod: 0.8
+  airAccelerationMod: 0.7
   jumpInitialVelocity: 7
   jumpHoldPower: 30
   jumpHoldDuration: 0.4

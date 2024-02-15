@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Block",
-                    "type": "Button",
-                    "id": "e1a3ff97-cafe-4920-a6e9-b5d21c5666f9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Heal",
                     "type": "Button",
                     "id": "ee0962bc-cd8c-46fd-9902-53e202ec1262",
@@ -428,28 +419,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "02ba42a0-47e4-4904-9ff0-8ed7088f3000",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7d8904d4-ce4a-4bf8-b520-9269ebd00eb7",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
