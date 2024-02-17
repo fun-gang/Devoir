@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb = null;
 
-    public static bool control; // Variable for cutscenes => Turn off/on movement ability
+    [HideInInspector] public static bool control; // Variable for cutscenes => Turn off/on movement ability
 
     // Jump
     private bool isGrounded;

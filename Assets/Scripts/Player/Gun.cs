@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -15,16 +14,23 @@ public class Gun : MonoBehaviour
     public GameObject bullet;
     public Transform firePos;
     public GameObject[] effects;
-    private bool isReady = true;
+    public bool isReady = true;
     public Health health;
+    public float flyingSpeed = 10;
+    public float rotateSpeed = 25;
+    public float flyingTime = 4.5f;
 
     void Start() => UseModificators();
     
-    public void Fire(InputAction.CallbackContext value) {
-        if (isReady && Movement.control && CheckEnergyLimit()) {
+    public void Fire() {
+        if (isReady && CheckEnergyLimit()) {
             isReady = false;
             StartCoroutine(FireCor());
         }
+    }
+
+    public void Rotatata() {
+        Debug.Log("Ratatataat");
     }
 
     private bool CheckEnergyLimit() {

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Sword : MonoBehaviour
 {
@@ -18,8 +17,8 @@ public class Sword : MonoBehaviour
         isReady = true;
     }
 
-    public void Attack(InputAction.CallbackContext value) {
-        if (isReady && Movement.control) {
+    public void Attack() {
+        if (isReady) {
             isReady = false;
 
             attackState += 1;
@@ -29,6 +28,10 @@ public class Sword : MonoBehaviour
             RandomSwordSound();
             StartCoroutine(SwordAnimDisable());
         }
+    }
+
+    public void CircleAttack() {
+        Debug.Log("VSHYH");
     }
 
     IEnumerator SwordAnimDisable() {

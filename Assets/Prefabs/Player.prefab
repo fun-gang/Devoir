@@ -913,6 +913,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6225817316313343057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4897522152099885326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6503102611150773571}
+  m_Layer: 0
+  m_Name: GunPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6503102611150773571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4897522152099885326}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.798273, w: 0.6022958}
+  m_LocalPosition: {x: -0.125, y: 0.483, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4629511787296373424}
+  m_Father: {fileID: 5662952563061083759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 105.931}
 --- !u!1 &5245282637729207908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,13 +1089,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5559652594458038167}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7982718, w: -0.6022974}
-  m_LocalPosition: {x: -0.125, y: 0.483, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8083715391730368847}
-  m_Father: {fileID: 5662952563061083759}
+  m_Father: {fileID: 6503102611150773571}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3505394221244870292
 SpriteRenderer:
@@ -1134,8 +1166,11 @@ MonoBehaviour:
   firePos: {fileID: 8083715391730368847}
   effects:
   - {fileID: 5139207396179017975, guid: 67cab93b49d6e3f438325200a8e9a3ba, type: 3}
-  sword: {fileID: 7005029445124613018}
+  isReady: 1
   health: {fileID: 8396289760339279415}
+  flyingSpeed: 10
+  rotateSpeed: 25
+  flyingTime: 4.5
 --- !u!1 &6167810022055285910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1201,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4629511787296373424}
+  - {fileID: 6503102611150773571}
   - {fileID: 6034604907335487599}
   m_Father: {fileID: 101578792176416884}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 277.892}
@@ -1429,6 +1464,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun: {fileID: 5654609866429183074}
   sword: {fileID: 7005029445124613018}
+  swordComboBufferTime: 0.5
+  gunComboBufferTime: 0.5
+  jumpComboBufferingTime: 0.5
+  swordPressTime: -Infinity
+  gunPressTime: -Infinity
 --- !u!114 &8396289760339279415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1488,7 +1528,6 @@ MonoBehaviour:
     end: {fileID: 5691393157021843298}
   particleOrigin: {fileID: 5311778485623363352}
   groundParticle: {fileID: 6783663237345777498, guid: df13b67309a8fd74e929fe9a6be28a84, type: 3}
-  sword: {fileID: 7005029445124613018}
 --- !u!50 &8893574193408738827
 Rigidbody2D:
   serializedVersion: 4
@@ -1920,7 +1959,6 @@ MonoBehaviour:
   - {fileID: 6227402361852934819, guid: df5b9cfcf08542d4586024a956633746, type: 3}
   - {fileID: 2942111793351824107, guid: 7bd217e0886eaea408b6a2b13c507663, type: 3}
   isReady: 0
-  isBlock: 0
   swordAnims:
   - anim: {fileID: 7400000, guid: a3b8bc2f56db9664eb3f7354914d5b5e, type: 2}
     duration: 0
