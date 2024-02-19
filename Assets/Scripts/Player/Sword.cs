@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Sword : MonoBehaviour
 {
+    [SerializeField] private PlayerData stats;
+    private float swordDamage = 0.15f;
+    [SerializeField] private float swordDamageBlock = 2;
     public Animator playerAnim;
     public GameObject[] swordSounds;
     public bool isReady;
@@ -19,6 +22,8 @@ public class Sword : MonoBehaviour
         InitializeAnimDuration();
         isReady = true;
         isBlock = false;
+        swordDamage += (stats.SwordDamageMod / 100) * swordDamage;
+        swordDamageBlock += (stats.SwordDamageBlockMod / 100) * swordDamageBlock;
     }
 
     public void Attack(InputAction.CallbackContext value) {

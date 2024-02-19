@@ -12,7 +12,6 @@ TagManager:
   - CommandList
   - MovingPlatform
   - Box
-  - DeathAnim
   - Interactive
   - GunPos
   - Sword

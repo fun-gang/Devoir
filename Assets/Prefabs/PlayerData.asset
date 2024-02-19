@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   swordDamageMod: 0
-  gunDamageMod: 500
+  gunDamageMod: 0
   timeBtwShotsMod: 0
   reloadTimeMod: 0
   countOfBulletsMod: 0
   maxHealthMod: 0
-  maxEnergyMod: 0
-  energyRecoveringSpeedMod: 70
-  gunFireCostMod: 0
+  swordDamageBlockMod: 0

@@ -27,15 +27,14 @@ public class MenuDrop : MonoBehaviour
         }
     }
 
-    public void PlayDeathAnim() {
-        deathAnim.Play("Close");
-    }
-
     public void ClosePanel() {
         Movement.control = true;
         Time.timeScale = 1;
         panel.SetActive(false);
     }
     
-    public void Menu() => SceneManager.LoadScene(0);
+    public void Menu() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
 }

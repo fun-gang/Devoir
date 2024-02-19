@@ -683,7 +683,7 @@ Transform:
   m_GameObject: {fileID: 1690847356976374004}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26200002, y: 0.41799998, z: 0}
+  m_LocalPosition: {x: 0.26200002, y: 0.071, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1933,6 +1933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9732ab1be6900f4d9b5a65f1a384cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: faa73bff83528a84d876a543e564b6b3, type: 2}
+  swordDamageBlock: 2
   playerAnim: {fileID: 1764843489904749758}
   swordSounds:
   - {fileID: 5332663271526150342, guid: 2aed39ee6786d8240bb3313228195f9f, type: 3}
