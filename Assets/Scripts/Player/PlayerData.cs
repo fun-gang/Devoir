@@ -11,9 +11,6 @@ public class PlayerData : ScriptableObject
     [Tooltip("-%")] [SerializeField] private float reloadTimeMod = 0f;
     [Tooltip("+ bullets (int)")] [SerializeField] private int countOfBulletsMod = 0;
     [Tooltip("+ HP cells (int)")] [SerializeField] private int maxHealthMod = 0;
-    [Tooltip("+%")] [SerializeField] private float maxEnergyMod = 0f;
-    [Tooltip("+%")] [SerializeField] private float energyRecoveringSpeedMod = 0f;
-    [Tooltip("-%")] [SerializeField] private float gunFireCostMod = 0f;
 
     public float SwordDamageMod { get => swordDamageMod; set => swordDamageMod = value; }
     public float GunDamageMod { get => gunDamageMod; set => gunDamageMod = value; }
@@ -21,7 +18,4 @@ public class PlayerData : ScriptableObject
     public float ReloadTimeMod { get => reloadTimeMod; set => reloadTimeMod = value; }
     public int CountOfBulletsMod { get => countOfBulletsMod; set => countOfBulletsMod = value; }
     public int MaxHealthMod { get => maxHealthMod; set => maxHealthMod = value; }
-    public float MaxEnergyMod { get => maxEnergyMod; set => maxEnergyMod = value; }
-    public float EnergyRecoveringSpeedMod { get => energyRecoveringSpeedMod; set => energyRecoveringSpeedMod = value; }
-    public float GunFireCostMod { get => gunFireCostMod; set => gunFireCostMod = value; }
 }

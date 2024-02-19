@@ -85,11 +85,12 @@ public class Movement : MonoBehaviour
     private void TryJump () {
         if (isGrounded && (Time.time - jumpPressTime) < jumpBufferingTime) {
             rb.velocity = Vector2.up * jumpInitialVelocity;
+            jumpPressTime = float.NegativeInfinity;
             jumpStartTime = Time.time;
             lastGroundedTime = float.NegativeInfinity;
         }
     }
-
+    
     private void ApplyJumpSpeed () {
         float progress = 1 - (Time.time - jumpStartTime) / jumpHoldDuration;
         if (progress < 0) return;

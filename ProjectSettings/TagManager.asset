@@ -16,7 +16,6 @@ TagManager:
   - Interactive
   - GunPos
   - Sword
-  - RateUI
   - Hit1
   layers:
   - Default

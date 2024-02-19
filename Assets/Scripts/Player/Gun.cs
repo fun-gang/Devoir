@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -9,38 +10,28 @@ public class Gun : MonoBehaviour
     private float timeBtwShots = 0.1f;
     private float reloadTime = 1f;
     private int countOfBullets = 1;
-    private float gunFireCost = 0.15f;
 
     public GameObject bullet;
     public Transform firePos;
     public GameObject[] effects;
-    public bool isReady = true;
-    public Health health;
-    public float flyingSpeed = 10;
-    public float rotateSpeed = 25;
-    public float flyingTime = 4.5f;
+    public int isReadyState;
+    public Animator playerAnim;
+    public Sword sword;
 
-    void Start() => UseModificators();
+    void Start() { 
+        UseModificators();
+        isReadyState = 2;
+    }
     
-    public void Fire() {
-        if (isReady && CheckEnergyLimit()) {
-            isReady = false;
+    public void Fire(InputAction.CallbackContext value) {
+        if (isReadyState == 2 && sword.isReady) {
+            isReadyState = 0;
+            playerAnim.SetBool("IsFire", true);
             StartCoroutine(FireCor());
         }
     }
 
-    public void Rotatata() {
-        Debug.Log("Ratatataat");
-    }
-
-    private bool CheckEnergyLimit() {
-        if (health.energy >= countOfBullets * gunFireCost) return true;
-        return false;
-    }
-
     IEnumerator FireCor() {
-        health.energy -= countOfBullets * gunFireCost;
-        health.SetUIHealthAndEnergy();
         for (int k = 0; k < countOfBullets; k ++) {
             foreach (GameObject i in effects) {
                 yield return new WaitForSeconds(timeBtwShots);
@@ -49,15 +40,17 @@ public class Gun : MonoBehaviour
             GameObject newBullet = Instantiate(bullet, firePos.position, Quaternion.FromToRotation (Vector3.right, transform.lossyScale.x * transform.right));
             newBullet.GetComponent<PlayerBullet>().damage = gunDamage;
         }
+        playerAnim.SetBool("IsFire", false);
+        playerAnim.Play("Idle");
+        isReadyState = 1;
         yield return new WaitForSeconds(reloadTime);
-        isReady = true;
+        isReadyState = 2;
     }
 
     private void UseModificators() {
         gunDamage += (stats.GunDamageMod / 100) * gunDamage;
         timeBtwShots -= (stats.TimeBtwShotsMod / 100) * timeBtwShots;
         reloadTime -= (stats.ReloadTimeMod / 100) * reloadTime;
-        gunFireCost -= (stats.GunFireCostMod / 100) * gunFireCost;
         countOfBullets += stats.CountOfBulletsMod;
     }
 }

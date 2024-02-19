@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class Sword : MonoBehaviour
 {
     public Animator playerAnim;
     public GameObject[] swordSounds;
     public bool isReady;
+    public bool isBlock;
     private int attackState;
     public List<SwordsAnimations> swordAnims = new List<SwordsAnimations>();
+    private float blockAnimDuration = 1;
+    public Gun gun;
 
     void Start() {
         attackState = -1;
         playerAnim.SetInteger("Attack", attackState);
         InitializeAnimDuration();
         isReady = true;
+        isBlock = false;
     }
 
-    public void Attack() {
-        if (isReady) {
+    public void Attack(InputAction.CallbackContext value) {
+        if (isReady && gun.isReadyState >= 1) {
             isReady = false;
 
             attackState += 1;
@@ -26,17 +30,25 @@ public class Sword : MonoBehaviour
             playerAnim.SetInteger("Attack", attackState);
                         
             RandomSwordSound();
-            StartCoroutine(SwordAnimDisable());
+            StartCoroutine(SwordAnimDisable(swordAnims[attackState].duration));
         }
     }
 
-    public void CircleAttack() {
-        Debug.Log("VSHYH");
+    public void Block(InputAction.CallbackContext value) {
+        if (isReady && gun.isReadyState >= 1) {
+            isReady = false;
+            isBlock = true;
+
+            playerAnim.SetBool("IsBlock", true);
+            StartCoroutine(SwordAnimDisable(blockAnimDuration));
+        }
     }
 
-    IEnumerator SwordAnimDisable() {
-        yield return new WaitForSeconds(swordAnims[attackState].duration);
+    IEnumerator SwordAnimDisable(float time) {
+        yield return new WaitForSeconds(time);
         playerAnim.SetInteger("Attack", -1);
+        playerAnim.SetBool("IsBlock", false);
+        isBlock = false;
         isReady = true;
     }
 
@@ -48,6 +60,11 @@ public class Sword : MonoBehaviour
     private void InitializeAnimDuration() {
         RuntimeAnimatorController ac = playerAnim.runtimeAnimatorController;
         for (int i = 0; i < ac.animationClips.Length; i++) {
+            if (ac.animationClips[i].name == "PlayerBlock") {
+                blockAnimDuration = ac.animationClips[i].length;
+                continue;
+            }
+
             for (int j = 0; j < swordAnims.Count; j++) {
                 if (ac.animationClips[i] == swordAnims[j].anim) {
                     swordAnims[j].duration = ac.animationClips[i].length;
