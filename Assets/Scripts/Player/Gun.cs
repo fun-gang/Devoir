@@ -24,7 +24,7 @@ public class Gun : MonoBehaviour
     }
     
     public void Fire(InputAction.CallbackContext value) {
-        if (isReadyState == 2 && sword.isReady) {
+        if (isReadyState == 2 && sword.isReady && Movement.control) {
             isReadyState = 0;
             playerAnim.SetBool("IsFire", true);
             StartCoroutine(FireCor());

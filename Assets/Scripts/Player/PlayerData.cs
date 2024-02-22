@@ -12,6 +12,8 @@ public class PlayerData : ScriptableObject
     [Tooltip("+ bullets (int)")] [SerializeField] private int countOfBulletsMod = 0;
     [Tooltip("+ HP cells (int)")] [SerializeField] private int maxHealthMod = 0;
     [Tooltip("How much increased damage after COOL block of enemy attack (+%)")] [SerializeField] private float swordDamageBlockMod = 0f;
+    [Tooltip("-%")] [SerializeField] private float comboTimeMod = 0f;
+    [Tooltip("-%")] [SerializeField] private float comboCursorSpeedMod = 0f;
 
     public float SwordDamageMod { get => swordDamageMod; set => swordDamageMod = value; }
     public float GunDamageMod { get => gunDamageMod; set => gunDamageMod = value; }
@@ -20,4 +22,6 @@ public class PlayerData : ScriptableObject
     public int CountOfBulletsMod { get => countOfBulletsMod; set => countOfBulletsMod = value; }
     public int MaxHealthMod { get => maxHealthMod; set => maxHealthMod = value; }
     public float SwordDamageBlockMod {get => swordDamageBlockMod; set => swordDamageBlockMod = value; }
+    public float ComboTimeMod {get => comboTimeMod; set => comboTimeMod = value; }
+    public float ComboCursorSpeedMod {get => comboCursorSpeedMod; set => comboCursorSpeedMod = value; }
 }

@@ -44,7 +44,7 @@ public class Movement : MonoBehaviour
     public Transform particleOrigin;
     public GameObject groundParticle;
 
-    private float direction = 1;
+    [HideInInspector] public float direction = 1;
 
     // Components
     private Animator anim;

@@ -98,6 +98,15 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Combo"",
+                    ""type"": ""Button"",
+                    ""id"": ""679f81f0-8e72-4ef1-b275-ac137a85b9f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -428,6 +437,28 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee2de821-df9b-4c28-bcd7-44ea56a686d0"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Combo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9cf96bf-ad4f-4d4d-bc6a-2d3ec4452dca"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Combo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1012,6 +1043,7 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         m_Player_Sword = m_Player.FindAction("Sword", throwIfNotFound: true);
         m_Player_Heal = m_Player.FindAction("Heal", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
+        m_Player_Combo = m_Player.FindAction("Combo", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1093,6 +1125,7 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sword;
     private readonly InputAction m_Player_Heal;
     private readonly InputAction m_Player_Block;
+    private readonly InputAction m_Player_Combo;
     public struct PlayerActions
     {
         private @Gameplay m_Wrapper;
@@ -1105,6 +1138,7 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         public InputAction @Sword => m_Wrapper.m_Player_Sword;
         public InputAction @Heal => m_Wrapper.m_Player_Heal;
         public InputAction @Block => m_Wrapper.m_Player_Block;
+        public InputAction @Combo => m_Wrapper.m_Player_Combo;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1138,6 +1172,9 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
             @Block.started += instance.OnBlock;
             @Block.performed += instance.OnBlock;
             @Block.canceled += instance.OnBlock;
+            @Combo.started += instance.OnCombo;
+            @Combo.performed += instance.OnCombo;
+            @Combo.canceled += instance.OnCombo;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1166,6 +1203,9 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
             @Block.started -= instance.OnBlock;
             @Block.performed -= instance.OnBlock;
             @Block.canceled -= instance.OnBlock;
+            @Combo.started -= instance.OnCombo;
+            @Combo.performed -= instance.OnCombo;
+            @Combo.canceled -= instance.OnCombo;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1329,6 +1369,7 @@ public partial class @Gameplay: IInputActionCollection2, IDisposable
         void OnSword(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
+        void OnCombo(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

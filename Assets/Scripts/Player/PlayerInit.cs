@@ -20,6 +20,7 @@ public class PlayerInit : MonoBehaviour
     public Gun gun;
     public Sword sword;
     private Health health;
+    private Combo combo;
 
     void Awake() {
         controls = new Gameplay();
@@ -29,6 +30,7 @@ public class PlayerInit : MonoBehaviour
         cvm = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>();
         cvm.Follow = transform;
         health = GetComponent<Health>();
+        combo = GetComponent<Combo>();
     }
 
     void Update() {
@@ -44,6 +46,7 @@ public class PlayerInit : MonoBehaviour
         controls.Player.Fire.performed += gun.Fire;
         controls.Player.Block.performed += sword.Block;
         controls.Player.Heal.performed += health.RecoverHP;
+        controls.Player.Combo.performed += combo.Actvate;
     }
 
     private void OnDisable() {

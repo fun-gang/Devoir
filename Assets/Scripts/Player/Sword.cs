@@ -27,7 +27,7 @@ public class Sword : MonoBehaviour
     }
 
     public void Attack(InputAction.CallbackContext value) {
-        if (isReady && gun.isReadyState >= 1) {
+        if (isReady && gun.isReadyState >= 1 && Movement.control) {
             isReady = false;
 
             attackState += 1;
@@ -40,7 +40,7 @@ public class Sword : MonoBehaviour
     }
 
     public void Block(InputAction.CallbackContext value) {
-        if (isReady && gun.isReadyState >= 1) {
+        if (isReady && gun.isReadyState >= 1 && Movement.control) {
             isReady = false;
             isBlock = true;
 
