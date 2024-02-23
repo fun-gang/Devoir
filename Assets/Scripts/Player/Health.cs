@@ -10,21 +10,25 @@ public class Health : MonoBehaviour
     private int health;
     private SetHPCells ui;
     public GameObject obereg;
-    [SerializeField] private float framesAfterHurt = 3.5f;
+    private bool isResist = false;
+    [SerializeField] private float resistanceFrames = 1.5f;
 
     void Start() {
         maxHealth += stats.MaxHealthMod;
+        resistanceFrames += (stats.ResistanceFramesMod / 100) * resistanceFrames;
         health = maxHealth;
         ui = GameObject.FindGameObjectWithTag("MenuDrop").GetComponent<SetHPCells>();
         SetUIHealthAndEnergy();
     }
 
     void OnTriggerEnter2D(Collider2D hit) {
-        if (hit.tag == "Hit1") {
+        if (hit.tag == "Hit1" && !isResist) {
             health -= 1;
+            StartCoroutine(Resistance());
         }
-        if (hit.tag == "Hit2") {
+        if (hit.tag == "Hit2" && !isResist) {
             health -= 2;
+            StartCoroutine(Resistance());
         }
         SetUIHealthAndEnergy();
     }
@@ -35,4 +39,12 @@ public class Health : MonoBehaviour
     }
 
     public void SetUIHealthAndEnergy() => ui.SetHPCellsUI(health);
+
+    IEnumerator Resistance() {
+        isResist = true;
+        obereg.SetActive(true);
+        yield return new WaitForSeconds(resistanceFrames);
+        obereg.SetActive(false);
+        isResist = false;
+    }
 }

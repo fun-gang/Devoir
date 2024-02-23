@@ -6000,7 +6000,6 @@ GameObject:
   - component: {fileID: 1150363932}
   - component: {fileID: 1150363935}
   - component: {fileID: 1150363934}
-  - component: {fileID: 1150363933}
   m_Layer: 0
   m_Name: Middle_Ground
   m_TagString: Untagged
@@ -6023,18 +6022,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 930647159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1150363933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150363931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85139c7540761c408d7c4277949c3c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!483693784 &1150363934
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -8131,7 +8118,6 @@ GameObject:
   - component: {fileID: 1492143974}
   - component: {fileID: 1492143977}
   - component: {fileID: 1492143976}
-  - component: {fileID: 1492143975}
   m_Layer: 0
   m_Name: Background_Layer2
   m_TagString: Untagged
@@ -8154,18 +8140,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 930647159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1492143975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1492143973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85139c7540761c408d7c4277949c3c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!483693784 &1492143976
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -9936,7 +9910,6 @@ GameObject:
   - component: {fileID: 1580943225}
   - component: {fileID: 1580943228}
   - component: {fileID: 1580943227}
-  - component: {fileID: 1580943226}
   m_Layer: 0
   m_Name: Background_Layer1
   m_TagString: Untagged
@@ -9959,18 +9932,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 930647159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1580943226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580943224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85139c7540761c408d7c4277949c3c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!483693784 &1580943227
 TilemapRenderer:
   m_ObjectHideFlags: 0

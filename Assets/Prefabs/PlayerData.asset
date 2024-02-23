@@ -19,3 +19,5 @@ MonoBehaviour:
   countOfBulletsMod: 0
   maxHealthMod: 0
   swordDamageBlockMod: 0
+  comboTimeMod: 70
+  comboCursorSpeedMod: 0

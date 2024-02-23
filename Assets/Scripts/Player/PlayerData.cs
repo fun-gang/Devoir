@@ -14,6 +14,7 @@ public class PlayerData : ScriptableObject
     [Tooltip("How much increased damage after COOL block of enemy attack (+%)")] [SerializeField] private float swordDamageBlockMod = 0f;
     [Tooltip("-%")] [SerializeField] private float comboTimeMod = 0f;
     [Tooltip("-%")] [SerializeField] private float comboCursorSpeedMod = 0f;
+    [Tooltip("+%")] [SerializeField] private float resistanceFramesMod = 0f;
 
     public float SwordDamageMod { get => swordDamageMod; set => swordDamageMod = value; }
     public float GunDamageMod { get => gunDamageMod; set => gunDamageMod = value; }
@@ -24,4 +25,5 @@ public class PlayerData : ScriptableObject
     public float SwordDamageBlockMod {get => swordDamageBlockMod; set => swordDamageBlockMod = value; }
     public float ComboTimeMod {get => comboTimeMod; set => comboTimeMod = value; }
     public float ComboCursorSpeedMod {get => comboCursorSpeedMod; set => comboCursorSpeedMod = value; }
+    public float ResistanceFramesMod {get => resistanceFramesMod; set => resistanceFramesMod = value; }
 }
