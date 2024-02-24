@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1c70188e3097b40965ba0d4be3506d, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  swordDamageMod: 0
-  gunDamageMod: 0
+  swordDamageMod: 231.0759
+  gunDamageMod: 231.0759
   timeBtwShotsMod: 0
   reloadTimeMod: 0
   countOfBulletsMod: 0
@@ -21,3 +21,4 @@ MonoBehaviour:
   swordDamageBlockMod: 0
   comboTimeMod: 70
   comboCursorSpeedMod: 0
+  resistanceFramesMod: 300

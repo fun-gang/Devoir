@@ -75,7 +75,7 @@ public class ComboUI : MonoBehaviour
             }
 
             if (isStopped) {
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.05f);
 
                 ComboResults newRes = new ComboResults();
                 newRes.cursorPos = cursor.position.x;
